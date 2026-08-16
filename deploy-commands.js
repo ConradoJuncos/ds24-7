@@ -1,103 +1,33 @@
 require('dotenv').config();
 const { REST, Routes, SlashCommandBuilder } = require('discord.js');
+const sounds = require('./sounds');
 
-const commands = [
+// Un comando por cada audio, generado automáticamente desde sounds.js.
+const commands = Object.keys(sounds).map((name) =>
     new SlashCommandBuilder()
-        .setName('hola')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('gustos')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('jueves')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('no')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('nojojo')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('orto')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('ostras')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('para')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('rompeque')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('si')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('sii')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('femboys')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('miss')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('notamara')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('fems')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('lol')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('lunes')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('nosaques')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('paja')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('literal')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('cat')
-        .setDescription('Reproduce un audio')
-        .toJSON(),
-    new SlashCommandBuilder()
-        .setName('trompadas')
+        .setName(name)
         .setDescription('Reproduce un audio')
         .toJSON()
-];
+);
+
+// Comando de la tabla de puntos.
+commands.push(
+    new SlashCommandBuilder()
+        .setName('top')
+        .setDescription('Muestra la tabla de puntos por tiempo en canales de voz')
+        .toJSON()
+);
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
-    await rest.put(
-        Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
-        { body: commands }
-    );
-    console.log('Comando registrado!');
+    try {
+        await rest.put(
+            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+            { body: commands }
+        );
+        console.log(`${commands.length} comandos registrados!`);
+    } catch (error) {
+        console.error('Error registrando comandos:', error);
+    }
 })();

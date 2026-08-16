@@ -1,0 +1,27 @@
+// Fuente única de verdad: comando -> archivo de audio dentro de ./audios
+// Tanto index.js (reproducción) como deploy-commands.js (registro) usan esto,
+// así no se desincronizan.
+module.exports = {
+    hola: 'josHola.wav',
+    gustos: 'gustos.wav',
+    jueves: 'jueves.wav',
+    no: 'no.wav',
+    nojojo: 'nojojo.wav',
+    orto: 'orto.wav',
+    ostras: 'ostras.wav',
+    para: 'para.wav',
+    rompeque: 'rompeque.wav',
+    si: 'si.wav',
+    sii: 'sii.wav',
+    trompadas: 'trompadas.wav',
+    notamara: 'notamara.wav',
+    femboys: 'femboys.wav',
+    miss: 'miss.wav',
+    fems: 'fems.wav',
+    lol: 'lol.wav',
+    lunes: 'lunes.wav',
+    paja: 'paja.wav',
+    literal: 'literal.wav',
+    nosaques: 'nosaques.wav',
+    cat: 'cat.wav',
+};
